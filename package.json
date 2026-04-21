@@ -1,7 +1,6 @@
 {
   "$schema": "https://www.schemastore.org/package.json",
   "private": true,
-  "packageManager": "pnpm@10.33.0",
   "type": "module",
   "scripts": {
     "build": "vite build",
@@ -55,5 +54,6 @@
     "@tailwindcss/oxide-win32-x64-msvc": "^4.0.1",
     "lightningcss-linux-x64-gnu": "^1.29.1",
     "lightningcss-win32-x64-msvc": "^1.29.1"
-  }
+  },
+  "packageManager": "pnpm@10.33.0"
 }

@@ -18,6 +18,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php-version: ["8.4", "8.5"]
 
@@ -25,10 +26,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v6
         with:
-          version: 10.33.0
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Enable pnpm via Corepack
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -36,12 +44,6 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
           coverage: xdebug
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: "22"
-          cache: pnpm
 
       - name: Install Node Dependencies
         run: pnpm install --frozen-lockfile
@@ -59,4 +61,4 @@ jobs:
         run: pnpm build
 
       - name: Tests
-        run: ./vendor/bin/pest
+        run: php artisan test --compact

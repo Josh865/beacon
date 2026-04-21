@@ -45,25 +45,26 @@
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
       "@php artisan key:generate",
       "@php artisan migrate --force",
-      "npm install",
-      "npm run build"
+      "pnpm install",
+      "pnpm build"
     ],
     "dev": [
       "Composer\\Config::disableProcessTimeout",
-      "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+      "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"pnpm dev\" --names=server,queue,logs,vite --kill-others"
     ],
     "lint": [
-      "pint --parallel"
+      "pint"
     ],
     "lint:check": [
-      "pint --parallel --test"
+      "pint --test"
     ],
     "ci:check": [
       "Composer\\Config::disableProcessTimeout",
-      "npm run lint",
-      "npm run format:check",
-      "npm run types:check",
-      "@test"
+      "@lint:check",
+      "pnpm lint",
+      "pnpm format:check",
+      "pnpm types:check",
+      "@php artisan test --compact"
     ],
     "test": [
       "@php artisan config:clear --ansi",
