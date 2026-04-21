@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ["8.3", "8.4", "8.5"]
+        php-version: ["8.4", "8.5"]
 
     steps:
       - name: Checkout code
@@ -36,9 +36,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: "22"
+          cache: pnpm
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Install Node Dependencies
-        run: npm i
+        run: pnpm install --frozen-lockfile
 
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
@@ -50,7 +54,7 @@ jobs:
         run: php artisan key:generate
 
       - name: Build Assets
-        run: npm run build
+        run: pnpm build
 
       - name: Tests
         run: ./vendor/bin/pest
