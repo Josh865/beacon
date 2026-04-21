@@ -49,6 +49,9 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
+      - name: Generate Wayfinder Types
+        run: php artisan wayfinder:generate --with-form --no-interaction
+
       - name: Copy Environment File
         run: cp .env.example .env
 
