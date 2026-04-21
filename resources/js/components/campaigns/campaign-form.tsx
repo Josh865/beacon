@@ -1,3 +1,4 @@
+import type { UrlMethodPair } from "@inertiajs/core";
 import { Link, useForm } from "@inertiajs/react";
 import { LoaderCircle, Sparkles } from "lucide-react";
 import { useState } from "react";
@@ -64,9 +65,7 @@ type CampaignFormProps = {
   audiencePreview: CampaignAudiencePreview;
   submitLabel: string;
   cancelHref: string;
-  submitAction:
-    | ReturnType<typeof CampaignController.store>
-    | ReturnType<typeof CampaignController.update>;
+  submitAction: UrlMethodPair;
 };
 
 function getXsrfToken(): string {

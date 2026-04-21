@@ -1,6 +1,6 @@
+import type { UrlMethodPair } from "@inertiajs/core";
 import { Link, useForm } from "@inertiajs/react";
 
-import ContactController from "@/actions/App/Http/Controllers/ContactController";
 import Heading from "@/components/heading";
 import InputError from "@/components/input-error";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -52,9 +52,7 @@ type ContactFormProps = {
   tags: TagOption[];
   statusOptions: StatusOption[];
   submitLabel: string;
-  submitAction:
-    | ReturnType<typeof ContactController.store>
-    | ReturnType<typeof ContactController.update>;
+  submitAction: UrlMethodPair;
 };
 
 export default function ContactForm({
